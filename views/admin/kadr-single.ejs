@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">Tertip belgisi: <%= kadr.id %> </div>
+      <div class="card-body p-5 w-50">
+
+        <div class="d-flex justify-content-between">
+          <h3>Ady: </h3>
+          <div><%= kadr.username %></div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h3>Emaily: </h3>
+          <div><%= kadr.email %></div>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h3>Açar sözi: </h3>
+          <div><%= kadr.password %></div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>Suraty: </h3>
+          <div> <img src="/uploads/user/<%= kadr.user_img %>" width="200" height="150" alt=""></div>
+        </div>
+        <a href="/admin/kadr" class="btn btn-danger">Yza çyk</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

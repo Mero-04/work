@@ -1,0 +1,17 @@
+<nav id="navbar" class="navbar">
+    <ul>
+        <li><a href="/" <% if (page=="home" ) { %> class="active" <% } %> >Home
+            </a></li>
+        <li><a href="/about" <% if (page =="about") { %> class="active" <% } %>>About</a></li>
+        <li><a href="/service" <% if (page =="service") { %> class="active" <% } %>>Services</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <% if (isAuth) { %>
+         <li><a href="/blog"<% if (page =="blog") { %> class="active" <% } %>>Blog</a></li>
+        <% } %>
+        <li><a href="/contact"<% if (page =="contact") { %> class="active" <% } %>>Contact</a></li>
+        <% if (!isAuth) { %>
+            <li><a href="/auth/register">Sign-in</a></li>
+        <% } %> 
+        <li><a href="#"><%= username %></a></li>
+    </ul>
+</nav>

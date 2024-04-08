@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header">Tertip belgisi: <%= blog.id %> </div>
+      <div class="card-body p-5 w-50">
+
+        <div class="d-flex justify-content-between">
+          <h3>Sözbaşy: </h3>
+          <div><%= blog.title %></div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <h3>Mazmuny: </h3>
+          <div><%= blog.description %></div>
+        </div>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>Suraty: </h3>
+          <div> <img src="/uploads/blog/<%= blog.blog_img %>" width="200" height="200" alt=""></div>
+        </div>
+        <a href="/admin/blog" class="btn btn-primary">Yza çyk</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
