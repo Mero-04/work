@@ -34,7 +34,7 @@ const AuthRouter = require("./routes/auth.router");
 const KadrRouter = require("./routes/kadr.router");
 
 
-// app.use("/", HomeRouter)
+app.use("/", HomeRouter)
 app.use("/admin", AdminRouter)
 app.use("/kadr", KadrRouter)
 app.use("/auth", AuthRouter)
