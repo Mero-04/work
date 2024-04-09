@@ -49,131 +49,131 @@ router.post("/contact/delete/:contactId", async (req, res) => {
     }
 })
 
-router.get("/kadr", async (req, res) => {
-    const kadr = await User.findAll();
-    res.render("admin/kadr", {
-        kadrlar: kadr
-    })
-})
+// router.get("/kadr", async (req, res) => {
+//     const kadr = await User.findAll();
+//     res.render("admin/kadr", {
+//         kadrlar: kadr
+//     })
+// })
 
-router.get("/kadr-add", async (req, res) => {
-    res.render("admin/kadr-add")
-})
-
-
-router.post("/kadr-add", imageUpload.upload.single("user_img"), async (req, res) => {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    try {
-        const kadr = await User.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPassword,
-            user_img: req.file.filename
-        })
-        res.redirect("/admin/kadr");
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-router.get("/kadr/:kadrId", async (req, res) => {
-    const id = req.params.kadrId;
-    const kadr = await User.findByPk(id)
-    res.render("admin/kadr-single", {
-        kadr: kadr
-    })
-})
+// router.get("/kadr-add", async (req, res) => {
+//     res.render("admin/kadr-add")
+// })
 
 
-router.post("/kadr/edit/:kadrId", imageUpload.upload.single("user_img"), async (req, res) => {
-    console.log(req.body.user_img)
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    const id = req.body.id;
-    let img = req.body.user_img;
+// router.post("/kadr-add", imageUpload.upload.single("user_img"), async (req, res) => {
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+//     try {
+//         const kadr = await User.create({
+//             username: req.body.username,
+//             email: req.body.email,
+//             password: hashedPassword,
+//             user_img: req.file.filename
+//         })
+//         res.redirect("/admin/kadr");
+//     } catch (err) {
+//         console.log(err)
+//     }
+// })
 
-    if (req.file) {
-        img = req.file.filename;
+// router.get("/kadr/:kadrId", async (req, res) => {
+//     const id = req.params.kadrId;
+//     const kadr = await User.findByPk(id)
+//     res.render("admin/kadr-single", {
+//         kadr: kadr
+//     })
+// })
 
-        fs.unlink("/uploads/user/" + req.body.user_img, err => {
-            console.log(err);
-        })
-    }
 
-    try {
-        const user = await User.findByPk(id);
-        if (user) {
-            user.username = username;
-            user.email = email;
-            user.user_img = img;
-            user.password = hashedPassword;
-            user.save()
+// router.post("/kadr/edit/:kadrId", imageUpload.upload.single("user_img"), async (req, res) => {
+//     console.log(req.body.user_img)
+//     const hashedPassword = await bcrypt.hash(req.body.password, 10)
+//     const id = req.body.id;
+//     let img = req.body.user_img;
 
-            return res.redirect("/admin/kadr?action=edit");
-        }
-        res.redirect("/admin/kadr");
-    }
-    catch (err) {
-        console.log(err);
-    }
+//     if (req.file) {
+//         img = req.file.filename;
 
-})
+//         fs.unlink("/uploads/user/" + req.body.user_img, err => {
+//             console.log(err);
+//         })
+//     }
 
-router.get("/kadr/edit/:kadrId", async (req, res) => {
-    const id = req.params.kadrId;
-    const kadr = await User.findOne({
-        where: { id: id }
-    })
-    res.render("admin/kadr-edit", {
-        kadr: kadr
-    })
-})
+//     try {
+//         const user = await User.findByPk(id);
+//         if (user) {
+//             user.username = username;
+//             user.email = email;
+//             user.user_img = img;
+//             user.password = hashedPassword;
+//             user.save()
 
-router.get("/kadr/delete/:kadrId", async (req, res) => {
-    const kadr = await User.findByPk(req.params.kadrId)
-    res.render("admin/kadr_delete", {
-        kadr: kadr
-    })
-})
+//             return res.redirect("/admin/kadr?action=edit");
+//         }
+//         res.redirect("/admin/kadr");
+//     }
+//     catch (err) {
+//         console.log(err);
+//     }
 
-router.post("/kadr/delete/:kadrId", async (req, res) => {
-    const kadr = await User.findByPk(req.params.kadrId);
-    if (kadr) {
-        kadr.destroy();
-        res.redirect("/admin/kadr")
-    } else {
-        console.log("Kadr tapylmady")
-    }
-})
+// })
 
-router.get("/blog", async (req, res) => {
-    const blogs = await Blog.findAll();
-    res.render("admin/blogs", {
+// router.get("/kadr/edit/:kadrId", async (req, res) => {
+//     const id = req.params.kadrId;
+//     const kadr = await User.findOne({
+//         where: { id: id }
+//     })
+//     res.render("admin/kadr-edit", {
+//         kadr: kadr
+//     })
+// })
+
+// router.get("/kadr/delete/:kadrId", async (req, res) => {
+//     const kadr = await User.findByPk(req.params.kadrId)
+//     res.render("admin/kadr_delete", {
+//         kadr: kadr
+//     })
+// })
+
+// router.post("/kadr/delete/:kadrId", async (req, res) => {
+//     const kadr = await User.findByPk(req.params.kadrId);
+//     if (kadr) {
+//         kadr.destroy();
+//         res.redirect("/admin/kadr")
+//     } else {
+//         console.log("Kadr tapylmady")
+//     }
+// })
+
+router.get("/users", async (req, res) => {
+    const blogs = await User.findAll();
+    res.render("admin/users", {
         bloglar: blogs
     })
 })
 
-router.get("/blog-add", async (req, res) => {
-    res.render("admin/blog-add")
-})
+// router.get("/blog-add", async (req, res) => {
+//     res.render("admin/blog-add")
+// })
 
-router.post("/blog-add", imageUpload.upload.single("blog_img"), async (req, res) => {
-    try {
-        const blog = await Blog.create({
-            title: req.body.title,
-            description: req.body.description,
-            blog_img: req.file.filename
-        })
-        res.redirect("/admin/blog");
-    } catch (err) {
-        console.log(err)
-    }
-})
+// router.post("/blog-add", imageUpload.upload.single("blog_img"), async (req, res) => {
+//     try {
+//         const blog = await Blog.create({
+//             title: req.body.title,
+//             description: req.body.description,
+//             blog_img: req.file.filename
+//         })
+//         res.redirect("/admin/blog");
+//     } catch (err) {
+//         console.log(err)
+//     }
+// })
 
-router.get("/blog/:blogId", async (req, res) => {
-    const id = req.params.blogId;
-    const blog = await Blog.findByPk(id)
-    res.render("admin/blog-single", {
-        blog: blog
+router.get("/user/:userId", async (req, res) => {
+    const id = req.params.userId;
+    const user = await User.findByPk(id)
+    res.render("admin/user-single", {
+        user: user
     })
 })
 
@@ -198,20 +198,20 @@ router.get("/blog/edit/:blogId", async (req, res) => {
     })
 })
 
-router.get("/blog/delete/:blogId", async (req, res) => {
-    const blog = await Blog.findByPk(req.params.blogId)
-    res.render("admin/blog_delete", {
-        blog: blog
+router.get("/user/delete/:userId", async (req, res) => {
+    const user = await User.findByPk(req.params.userId)
+    res.render("admin/user_delete", {
+        user: user
     })
 })
 
-router.post("/blog/delete/:blogId", async (req, res) => {
-    const blog = await Blog.findByPk(req.params.blogId);
-    if (blog) {
-        blog.destroy();
-        res.redirect("/admin/blog")
+router.post("/user/delete/:userId", async (req, res) => {
+    const user = await User.findByPk(req.params.userId);
+    if (user) {
+        user.destroy();
+        return res.redirect("/admin/users")
     } else {
-        console.log("Blog tapylmady")
+        console.log("Işgär tapylmady")
     }
 })
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { User, Admin } = require("../models/model");
+const { Worker, Admin } = require("../models/model");
 const bcrypt = require("bcrypt")
 
 const AuthController = require("../controllers/auth.controller")
@@ -52,21 +52,20 @@ router.get("/kadr/login", (req, res) => {
 
 router.post("/kadr/login", async (req, res) => {
     try {
-        const user = await User.findOne({
+        const kadr = await Worker.findOne({
             where: { email: req.body.email }
         });
 
-        if (!user) {
+        if (!kadr) {
             return res.render("auth/kadr-login", {
                 message: "Email yalnys"
             })
         }
-
-        const match = await bcrypt.compare(req.body.password, user.password)
+        const match = await bcrypt.compare(req.body.password, kadr.password)
         if (match) {
             req.session.isAuth = true;
-            req.session.role = user.role;
-            req.session.userId = user.id;
+            req.session.role = kadr.role;
+            req.session.userId = kadr.id;
             res.redirect("/kadr");
         } else {
             return res.render("auth/kadr-login", {

@@ -62,26 +62,37 @@ const User = sequelize.define("user", {
         primaryKey: true,
         allowNull: false
     },
-    username: {
+    surname: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    email: {
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    ata_name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    birth: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    duty: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    address: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
+    tel_nom: {
         type: DataTypes.STRING,
         allowNull: false
     },
     user_img: {
         type: DataTypes.STRING,
         allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    role: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "KADR"
     }
 });
 
@@ -107,6 +118,30 @@ const Admin = sequelize.define("admin", {
     }
 });
 
+const Worker = sequelize.define("worker", {
+    id: {
+        type: DataTypes.INTEGER(10),
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    password: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "WORKER"
+    }
+});
+
+Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "ADMIN" } })
+Worker.findOrCreate({ where: { email: "kadr@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "WORKER" } })
 
 User.hasMany(Blog)
 Blog.belongsTo(User)
@@ -116,5 +151,6 @@ module.exports = {
     Blog,
     Contact,
     Admin,
-    User
+    User,
+    Worker
 };

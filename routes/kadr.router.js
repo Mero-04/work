@@ -145,41 +145,42 @@ router.get("/contact", async (req, res) => {
 //     }
 // })
 
-router.get("/blog", isKadr, async (req, res) => {
-    console.log(req.session)
-    const blogs = await Blog.findAll({
-        where: { userId: req.session.userId }
-    });
-    res.render("kadr/blogs", {
+router.get("/users", isKadr, async (req, res) => {
+    const blogs = await User.findAll();
+    res.render("kadr/users", {
         bloglar: blogs
     })
 })
 
-router.get("/blog-add", isKadr, async (req, res) => {
-    res.render("kadr/blog-add")
+router.get("/user-add", isKadr, async (req, res) => {
+    res.render("kadr/user-add")
 })
 
-router.post("/blog-add", isKadr, imageUpload.upload.single("blog_img"), async (req, res) => {
+router.post("/user-add", isKadr, imageUpload.upload.single("user_img"), async (req, res) => {
     try {
-        const blog = await Blog.create({
-            title: req.body.title,
-            description: req.body.description,
-            blog_img: req.file.filename,
-            userId: req.session.userId
+        const user = await User.create({
+            name: req.body.name,
+            surname: req.body.surname,
+            ata_name: req.body.ata_name,
+            birth: req.body.birth,
+            duty: req.body.duty,
+            address: req.body.address,
+            tel_nom: req.body.surname,
+            user_img: req.file.filename
         })
-        res.redirect("/kadr/blog");
+        res.redirect("/kadr/users");
     } catch (err) {
         console.log(err)
     }
 })
 
-// router.get("/blog/:blogId", async (req, res) => {
-//     const id = req.params.blogId;
-//     const blog = await Blog.findByPk(id)
-//     res.render("admin/blog-single", {
-//         blog: blog
-//     })
-// })
+router.get("/user/:userId", async (req, res) => {
+    const id = req.params.userId;
+    const user = await User.findByPk(id)
+    res.render("kadr/user-single", {
+        user: user
+    })
+})
 
 // router.post("/blog/edit/:blogId", async (req, res) => {
 //     const blog = await Blog.findByPk(req.params.blogId);
@@ -202,25 +203,20 @@ router.post("/blog-add", isKadr, imageUpload.upload.single("blog_img"), async (r
 //     })
 // })
 
-router.get("/blog/delete/:blogId", isKadr, async (req, res) => {
-    const blog = await Blog.findByPk(req.params.blogId)
-    res.render("kadr/blog_delete", {
-        blog: blog
+router.get("/user/delete/:userId", isKadr, async (req, res) => {
+    const user = await User.findByPk(req.params.userId)
+    res.render("kadr/user_delete", {
+        user: user
     })
 })
 
-router.post("/blog/delete/:blogId", isKadr, async (req, res) => {
-    const blog = await Blog.findOne({
-        where: {
-            id: req.params.blogId,
-            userId: req.session.userId
-        }
-    });
-    if (blog) {
-        blog.destroy();
-        res.redirect("/kadr/blog")
+router.post("/user/delete/:userId", isKadr, async (req, res) => {
+    const user = await User.findByPk(req.params.userId);
+    if (user) {
+        user.destroy();
+        return res.redirect("/kadr/users")
     } else {
-        console.log("Blog tapylmady")
+        console.log("Ulanyjy tapylmady")
     }
 })
 
