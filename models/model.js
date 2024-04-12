@@ -140,6 +140,19 @@ const Worker = sequelize.define("worker", {
     }
 });
 
+const Category = sequelize.define("category", {
+    id: {
+        type: DataTypes.INTEGER(10),
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+});
+
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "ADMIN" } })
 Worker.findOrCreate({ where: { email: "kadr@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "WORKER" } })
 
@@ -152,5 +165,6 @@ module.exports = {
     Contact,
     Admin,
     User,
-    Worker
+    Worker,
+    Category
 };

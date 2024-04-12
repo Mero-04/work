@@ -14,17 +14,16 @@
 </head>
 
 <body class="sb-nav-fixed">
-
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Maglumatlary işlemek</a>
+        <a class="navbar-brand ps-3" href="index.html">Start Bootstrap</a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
             <div class="input-group">
-                <input class="form-control" type="text" placeholder="Gözle..." aria-label="Gözle..."
+                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
                     aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i
                         class="fas fa-search"></i></button>
@@ -36,8 +35,12 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-                    <li><a class="dropdown-item" href="/auth/logout">Ulgamdan çyk</a></li>
+                    <li><a class="dropdown-item" href="#!">Settings</a></li>
+                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="#!">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -49,71 +52,68 @@
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4 mb-4">Kadrlaryň sahypasy</h1>
+                    <h1 class="mt-4">Bölümler</h1>
 
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <div><i class="fas fa-file-alt me-1"></i>Kadr</div>
+                            <div><i class="fas fa-table me-1"></i>Bölüm</div>
                             <div class="button-add">
-                                <a href="/admin/kadr-add" class="btn btn-primary"><i class="fas fa-plus"></i> Goşmak</a>
+                                <a href="/admin/category-add" class="btn btn-primary"><i class="fas fa-plus"></i> Goşmak</a>
                             </div>
                         </div>
                         <div class="card-body">
+                            <% if (action == "create") { %>
+                             <div class="alert alert-success">
+                                Categori ustunlikli gosuldy
+                             </div>
+                            <% } %>
+                            <% if (action == "delete") { %>
+                                <div class="alert alert-danger">
+                                   Categori ustunlikli pozuldy
+                                </div>
+                               <% } %>
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Ady</th>
-                                        <th>Emaily</th>
-                                        <th>Suraty</th>
-                                        <th>Açar sözi</th>
-                                        <th>Role</th>
+                                        <th>Bölümiň ady</th>
                                         <th>Sazlamalar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% kadrlar.forEach(kadr=> { %>
+                                    <% category.forEach(categoryy=> { %>
                                         <tr>
                                             <td>
-                                                <%= kadr.id %>
+                                                <%= categoryy.id %>
                                             </td>
                                             <td>
-                                                <%= kadr.username %>
+                                                <%= categoryy.name %>
                                             </td>
                                             <td>
-                                                <%= kadr.email %>
-                                            </td>
-                                            <td>
-                                                <img src="/uploads/user/<%= kadr.user_img %>" width="150" height="100"
-                                                    alt="tapylmady">
-                                            </td>
-                                            <td>
-                                                <%= kadr.password %>
-                                            </td>
-                                            <td>
-                                                <%= kadr.role %>
-                                            </td>
-                                            <td>
-                                                <a href="/admin/kadr/<%= kadr.id %>" class="btn btn-primary"> <i
-                                                        class="fas fa-eye"></i></a>
-                                                <a href="/admin/kadr/edit/<%= kadr.id %>" class="btn btn-success"><i
-                                                        class="fas fa-edit"></i></a>
-                                                <a href="/admin/kadr/delete/<%= kadr.id %>" class="btn btn-danger"><i
-                                                        class="fas fa-trash"></i></a>
+                                                <a href="/admin/category/<%= categoryy.id %>"
+                                                    class="btn btn-primary"> <i class="fas fa-eye"></i></a>
+                                                    <a href="/admin/category/edit/<%= categoryy.id %>"
+                                                        class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                                <a href="/admin/category/delete/<%= categoryy.id %>"
+                                                    class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <% }) %>
                                 </tbody>
                             </table>
                         </div>
-
                     </div>
                 </div>
             </main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Ähli hukuklar goralan &copy; Website_name 2024</div>
+                        <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
                     </div>
                 </div>
             </footer>
