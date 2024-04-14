@@ -12,7 +12,7 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-light">
+<body>
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
@@ -21,58 +21,65 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Dokument döretmek sahypasy</h3>
+                                    <h3 class="text-center font-weight-light my-4"> Işgär maglumatlaryny düzediş etmek
+                                        <i class="fas fa-edit"></i>
+                                    </h3>
                                 </div>
                                 <div class="card-body">
-                                    <form action="/kadr/user-add" method="post" enctype="multipart/form-data">
+                                    <form action="" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" name="user_img" value="<%= user.user_img %>">
                                         <div class="form-floating mb-3">
-                                           <select name="categoryId" class="form-control" id="">
-                                            <option value="0">Saýla</option>
-                                                <% categories.forEach(category => { %>
-                                                <option value="<%= category.id %>"><%= category.name %></option>
-                                                 <% }) %>
-                                           </select>
+                                            <select name="categoryId" id="categoryId" class="form-control">
+                                                <option value="-1" selected>Saýlamak</option>
+                                                <% categories.forEach(category=> { %>
+                                                    <% if (category.id == user.categoryId) { %>
+                                                        <option value="<%= category.id %>" selected><%= category.name %> 
+                                                    <% } else { %>
+                                                        <option value="<%= category.id %>"><%= category.name %> 
+                                                        <% } %>
+                                                <% }) %>
+                                            </select>
                                             <label for="input">Bölüm: </label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="surname"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.surname %>" />
                                             <label for="input">Familýasy: </label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="name"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.name %>" />
                                             <label for="input">Ady: </label>
                                         </div>
-                                    
+
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="ata_name"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.ata_name %>" />
                                             <label for="input">Atasynyň ady: </label>
                                         </div>
-                                    
+
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="birth"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.birth %>" />
                                             <label for="input">Doglan senesi: </label>
                                         </div>
-                                    
+
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="duty"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.duty %>" />
                                             <label for="input">Wezipesi: </label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="address"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.address %>" />
                                             <label for="input">Salgysy: </label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="text" name="tel_nom"
-                                                placeholder="Add title" />
+                                                placeholder="Add title" value="<%= user.tel_nom %>" />
                                             <label for="input">Telefon belgisi: </label>
                                         </div>
-                                    
+
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="input" type="file" name="user_img"
                                                 placeholder="add image" />

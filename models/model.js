@@ -156,8 +156,8 @@ const Category = sequelize.define("category", {
 Admin.findOrCreate({ where: { email: "admin@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "ADMIN" } })
 Worker.findOrCreate({ where: { email: "kadr@gmail.com", password: "$2b$10$ppLSj03K./oeMqaDKYEpTehMP5/Nxp5JzmppDXbygn/ReZMhwBe5W", role: "WORKER" } })
 
-User.hasMany(Blog)
-Blog.belongsTo(User)
+Category.hasMany(User, { onDelete: "cascade", onUpdate: "cascade" })
+User.belongsTo(Category)
 
 
 module.exports = {

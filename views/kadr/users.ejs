@@ -55,6 +55,7 @@
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <div><i class="fas fa-user-alt me-2"></i>Işgärler</div>
                             <div class="button-add">
+                                <a href="/kadr/categories" class="btn btn-success"><i class="fas fa-bars"></i> Bölümler</a>
                                 <a href="/kadr/user-add" class="btn btn-primary"><i class="fas fa-plus"></i> Goşmak</a>
                             </div>
                         </div>
@@ -63,6 +64,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>Bölümi</th>
                                         <th>Familýasy</th>
                                         <th>Ady</th>
                                         <th>Atasynyň ady</th>
@@ -77,9 +79,15 @@
                                 <tbody>
                                     <% bloglar.forEach(user=> { %>
                                         <tr>
+                                            <td><%= user.id %></td>
                                             <td>
-                                                <%= user.id %>
+                                               <% if (user.categoryId == null || !user.categoryId ) { %>
+                                                Bolum saylanmadyk
+                                               <% } else { %> 
+                                                        <%= user.category.name %>
+                                                <% } %>
                                             </td>
+                                           
                                             <td>
                                                 <%= user.surname %>
                                             </td>

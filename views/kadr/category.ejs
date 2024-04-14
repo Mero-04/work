@@ -9,7 +9,7 @@
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="/admin/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
@@ -36,86 +36,55 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                   
-                    <li><a class="dropdown-item" href="/auth/logout">Ulgamdan çyk</a></li>
+
+                    <li><a class="dropdown-item" href="/auth/kadr/logout">Ulgamdan çyk</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <%- include('../component/sidebar') %>
+            <%- include('../component/sidebar-kadr') %>
         </div>
         <div id="layoutSidenav_content">
             <main>
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4 mb-4">Dokumentlar sahypasy</h1>
+                    <h1 class="mt-4 mb-4">Işgärler sahypasy</h1>
 
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <div><i class="fas fa-file-alt me-1"></i>Dokument</div>
+                            <div><i class="fas fa-user-alt me-2"></i>Işgärler</div>
                         </div>
                         <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Familýasy</th>
-                                        <th>Ady</th>
-                                        <th>Atasynyň ady</th>
-                                        <th>Tel No</th>
-                                        <th>Doglan senesi</th>
-                                        <th>Wezipesi</th>
-                                        <th>Ýaşaýan ýeri</th>
-                                        <th>Suraty</th>
+                                        <th>Bölüm ady</th>
                                         <th>Sazlamalar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <% bloglar.forEach(user=> { %>
+                                    <% categories.forEach(category=> { %>
                                         <tr>
                                             <td>
-                                                <%= user.id %>
+                                                <%= category.id %>
                                             </td>
+
                                             <td>
-                                                <%= user.surname %>
+                                                <%= category.name %>
                                             </td>
+
                                             <td>
-                                                <%= user.name %>
-                                            </td>
-                                            <td>
-                                                <%= user.ata_name %>
-                                            </td>
-                                            <td>
-                                                <%= user.tel_nom %>
-                                            </td>
-                                            <td>
-                                                <%= user.birth %>
-                                            </td>
-                                            <td>
-                                                <%= user.duty %>
-                                            </td>
-                                            <td>
-                                                <%= user.address %>
-                                            </td>
-                                            <td>
-                                                <img src="/uploads/user/<%= user.user_img %>" width="150"
-                                                    height="100" alt="tapylmady">
-                                            </td>
-                                            <td>
-                                                <a href="/admin/user/<%= user.id %>" class="btn btn-primary"> <i
+                                                <a href="/kadr/categories/<%= category.id %>" class="btn btn-primary"> <i
                                                         class="fas fa-eye"></i></a>
-                                                <a href="/admin/user/edit/<%= user.id %>"
-                                                    class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                                <a href="/admin/user/delete/<%= user.id %>"
-                                                    class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         <% }) %>
                                 </tbody>
                             </table>
                         </div>
-                     
+
                     </div>
                 </div>
             </main>
@@ -130,13 +99,13 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    <script src="/admin/js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="/admin/assets/demo/chart-area-demo.js"></script>
+    <script src="/admin/assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <script src="/admin/js/datatables-simple-demo.js"></script>
 </body>
 
 </html>
