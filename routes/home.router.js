@@ -1,5 +1,6 @@
 const express = require("express");
-const { Contact, Blog, Category } = require("../models/model");
+const { Contact, Blog, Category, User } = require("../models/model");
+const { where } = require("sequelize");
 const router = express.Router();
 
 
@@ -23,16 +24,16 @@ router.get("/contact", (req, res) => {
     })
 })
 
-router.get("/blog/:categoryId", async (req,res)=>{
+router.get("/blog/:categoryId", async (req, res) => {
     const id = req.params.categoryId;
     const categories = await Category.findAll();
     const blogs = await Blog.findAll({
-        where: { categoryId : id }
-    }) 
+        where: { categoryId: id }
+    })
     res.render("blogs", {
-        page:"blog",
+        page: "blog",
         blogs: blogs,
-        categories:categories
+        categories: categories
     })
 })
 
@@ -42,17 +43,46 @@ router.get("/blog", async (req, res) => {
     res.render("blogs", {
         page: "blog",
         blogs: blogs,
-        categories:categories
+        categories: categories
     })
 })
 
 
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+    const limit = 6;
+    const categories = await Category.findAll();
+    const users = await User.findAll({
+        limit,
+        order: [
+            ["id", "DESC"]
+        ],
+        include: { model: Category }
+    });
     res.render("index", {
         page: "home",
-        isAuth: req.session.isAuth,
-        username: req.session.username
+        categories: categories,
+        users: users
+    })
+})
+
+router.get("/users_category/:categoryId", async (req, res) => {
+    const limit = 6;
+    const categories = await Category.findAll();
+    const users = await User.findAll({
+        limit,
+        order: [
+            ["id", "DESC"]
+        ],
+        include: { model: Category },
+        where: {
+            categoryId: req.params.categoryId
+        }
+    });
+    res.render("index", {
+        page: "home",
+        categories: categories,
+        users: users
     })
 })
 

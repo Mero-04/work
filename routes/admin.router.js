@@ -9,10 +9,22 @@ const fs = require("fs")
 const isAdmin = require("../middlewares/isAdmin")
 
 
-router.get("/", isAdmin, (req, res) => {
-    res.render("admin/home_admin")
+router.get("/", isAdmin,async (req, res) => {
+   const categories = await Category.findAll();
+    res.render("admin/home_admin",{
+        categories:categories
+    })
 })
 
+router.get("/users/:categoryId",isAdmin, async (req, res) => {
+    const users = await User.findAll({
+        include: { model: Category },
+        where: { categoryId: req.params.categoryId }
+    });
+    res.render("admin/users", {
+        bloglar: users
+    })
+});
 
 router.get("/contact", async (req, res) => {
     const contacts = await Contact.findAll();
@@ -55,22 +67,7 @@ router.get("/users", async (req, res) => {
     })
 })
 
-// router.get("/blog-add", async (req, res) => {
-//     res.render("admin/blog-add")
-// })
 
-// router.post("/blog-add", imageUpload.upload.single("blog_img"), async (req, res) => {
-//     try {
-//         const blog = await Blog.create({
-//             title: req.body.title,
-//             description: req.body.description,
-//             blog_img: req.file.filename
-//         })
-//         res.redirect("/admin/blog");
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })
 
 router.get("/user/:userId", async (req, res) => {
     const id = req.params.userId;
